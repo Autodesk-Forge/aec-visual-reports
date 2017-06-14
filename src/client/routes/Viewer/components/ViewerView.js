@@ -1,3 +1,6 @@
+import {ReflexContainer, ReflexElement, ReflexSplitter} from 'react-reflex'
+import WidgetContainer from 'WidgetContainer'
+import { ReactLoader } from 'Loader'
 import Viewer from 'Viewer'
 import './ViewerView.scss'
 import React from 'react'
@@ -11,6 +14,8 @@ class ViewerView extends React.Component {
    constructor () {
 
       super ()
+
+      this.onViewerCreated = this.onViewerCreated.bind(this)
    }
 
    /////////////////////////////////////////////////////////
@@ -167,17 +172,44 @@ class ViewerView extends React.Component {
    //
    //
    /////////////////////////////////////////////////////////
-   render () {
+   render() {
 
-      return (
-        <div className="viewer-view">
-          <Viewer onViewerCreated={(viewer => {
-              this.onViewerCreated(viewer)
-            })}
-          />
-        </div>
-      )
-   }
+        const showLoader = false
+
+        return (
+
+          <div className="viewer-view">
+            <ReflexContainer orientation='vertical'>
+              <ReflexElement minSize={139}>
+                <WidgetContainer title="BIM 360 Docs">
+                </WidgetContainer>
+              </ReflexElement>
+              <ReflexSplitter onStopResize={() => this.forceUpdate()}/>
+              <ReflexElement flex={0.5} propagateDimensions={true} minSize={150}>
+                <Viewer onViewerCreated={this.onViewerCreated}/>
+              </ReflexElement>
+              <ReflexSplitter onStopResize={() => this.forceUpdate()}/>
+              <ReflexElement>
+                <ReflexContainer orientation='horizontal'>
+                  <ReflexElement minSize={39}>
+                    <WidgetContainer title="2D Model">
+                      <ReactLoader show={showLoader}/>
+                      
+                    </WidgetContainer>
+                  </ReflexElement>
+                  <ReflexSplitter onStopResize={() => this.forceUpdate()}/>
+                  <ReflexElement minSize={39}>
+                    <WidgetContainer title="Pie Chart">
+                      <ReactLoader show={showLoader}/>
+                      
+                    </WidgetContainer>
+                  </ReflexElement>
+                </ReflexContainer>
+              </ReflexElement>
+            </ReflexContainer>
+          </div>
+        )
+  }
 }
 
 export default ViewerView

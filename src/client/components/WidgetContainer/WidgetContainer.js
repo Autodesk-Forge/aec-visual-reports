@@ -1,17 +1,51 @@
-
+import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import './WidgetContainer.scss'
 import React from 'react'
 
 class WidgetContainer extends React.Component {
 
-  constructor () {
+  /////////////////////////////////////////////////////////
+  //
+  //
+  /////////////////////////////////////////////////////////
+  static propTypes = {
+    className: PropTypes.string,
+    showTitle: PropTypes.bool
+  }
 
-    super()
+  /////////////////////////////////////////////////////////
+  //
+  //
+  /////////////////////////////////////////////////////////
+  static defaultProps = {
+    showTitle: true,
+    className: ''
+  }
 
-    this.state = {
-      style: {}
+  /////////////////////////////////////////////////////////
+  //
+  //
+  /////////////////////////////////////////////////////////
+  renderTitle () {
+
+    if (!this.props.showTitle) {
+
+      return <div/>
     }
+
+    if (this.props.renderTitle) {
+
+      return this.props.renderTitle()
+    }
+
+    return (
+      <div className="title">
+        <label>
+          { this.props.title }
+        </label>
+      </div>
+    )
   }
 
   ///////////////////////////////////////////////////////////////////
@@ -42,14 +76,19 @@ class WidgetContainer extends React.Component {
   ///////////////////////////////////////////////////////////////////
   render() {
 
+    const classNames = [
+      'widget-container',
+      ...this.props.className.split(' ')
+    ]
+
+    const height = this.props.showTitle
+      ? 'calc(100% - 40px)'
+      : '100%'
+
     return (
-      <div className="widget-container">
-        <div className="title">
-          <label>
-          {this.props.title}
-          </label>
-        </div>
-        <div className="content">
+      <div className={classNames.join(' ')} style={this.props.style}>
+         { this.renderTitle() }
+        <div className="content" style={{height}}>
           {this.renderChildren()}
         </div>
       </div>

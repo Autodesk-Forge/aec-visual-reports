@@ -1,3 +1,4 @@
+import 'react-reflex/styles.css'
 import 'Dialogs/dialogs.scss'
 import Header from 'Header'
 import 'forge-white.scss'

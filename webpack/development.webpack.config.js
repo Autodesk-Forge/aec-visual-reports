@@ -106,7 +106,7 @@ module.exports = {
       style: config.forge.viewer.style,
 
       template: path.resolve(__dirname, '../src/client/layouts/index.ejs'),
-      title: 'Forge | Boiler | DEV',
+      title: 'Forge | Visual-Reports | DEV',
       filename: 'index.html',
       minify: false,
       inject: 'body'
@@ -120,6 +120,11 @@ module.exports = {
 
   resolve: {
     modules: [
+      path.resolve('./src/client/Viewer.Components/Viewer.Extensions.Dynamic'),
+      path.resolve('./src/client/Viewer.Components/Viewer.Extensions'),
+      path.resolve('./src/client/Viewer.Components/Viewer.Commands'),
+      path.resolve('./src/client/Viewer.Components'),
+      
       path.resolve('./src/client/components'),
       path.resolve('./src/client/services'),
       path.resolve('./src/client/styles'),

@@ -1,0 +1,266 @@
+.config-manager .title {
+  display: inline-flex;
+  float: left;
+}
+
+.config-manager .title > label {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  white-space: nowrap;
+  font-weight: normal;
+  user-select: none;
+  margin-left: 27px;
+  margin-top: 10px;
+  select: none;
+  width: 144px;
+  float: left;
+}
+
+.config-manager .content > .controls {
+  margin: 10px 10px 0px 10px;
+  display: inline-block;
+  white-space: nowrap;
+  height: 54px;
+  width: 100%;
+}
+
+.config-manager .content > .controls > .row {
+  display: flex;
+  width: 100%;
+  margin: 0;
+}
+
+.config-manager .content > .controls .dropdown {
+  width: calc(100% - 121px);
+  margin-bottom: 6px;
+  float: left;
+}
+
+.config-manager .content > .controls .dropdown > button {
+  padding: 0 10px 0 10px;
+  overflow: hidden;
+  height: 26px;
+  width: 100%;
+  margin: 0;
+}
+
+.config-manager .content > .controls button {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+
+  background: whitesmoke;
+  border-radius: 4px;
+  margin-left: 4px;
+  outline: none;
+  height: 26px;
+  width: 30px;
+  float: left;
+  padding: 0;
+}
+
+.config-manager .content > .controls button > span {
+  margin: auto auto auto 0px;
+  position: relative;
+  font-size: 16px;
+  color: #9b9b9b;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  top: -1px;
+}
+
+.config-manager .content > .controls button > span.caret {
+  margin: auto 0 auto auto;
+  width: 0px;
+}
+
+.config-manager .content > .controls button:disabled > span {
+  color: #d0d0d0;
+}
+
+.config-manager .content > .controls button:hover:not(:disabled) > span {
+  color: #FF9800;
+}
+
+.config-manager .content > .controls button:disabled > span {
+  color: #d0d0d0;
+}
+
+.config-manager .content > .controls label {
+  margin: 4px 10px 0 10px;
+  font-weight: normal;
+  float: left;
+}
+
+.config-manager .content > .controls .state-name-input {
+  border: 1px solid #aeaeae;
+  width: calc(100% - 155px);
+  padding: 3px 0 0 10px;
+  white-space: nowrap;
+  border-radius: 4px;
+  text-align: left;
+  overflow: hidden;
+  height: 26px;
+  float: left;
+}
+
+.config-manager .content > .controls .loop {
+  margin-left: 6px;
+  float: left;
+}
+
+.config-manager .content > .controls .loop > label {
+  margin: 0 0 0 6px;
+}
+
+.config-manager .items {
+  height: calc(100% - 82px);
+  overflow: scroll;
+  margin: 4px;
+}
+
+.config-manager .items > .item,
+.gu-mirror.item {
+  transition-timing-function: ease;
+  transition-duration: 1.5s;
+  transition-property: all;
+  transition-delay: 0.0s;
+
+  border: 1px solid #aeaeae;
+  width: calc(100% - 10px);
+  background: #ededed;
+  white-space: nowrap;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  height: 26px;
+  padding: 2px;
+  margin: 5px;
+}
+
+.config-manager .items > .item:hover {
+  background: rgba(0, 105, 245, 0.35);
+  border: 1px solid #1bb1f4;
+}
+
+.config-manager .items > .item.active {
+  background: rgba(0, 105, 245, 0.35);
+  border: 1px solid #1bb1f4;
+}
+
+.config-manager .items > .item > div,
+.gu-mirror.item > div {
+  width: calc(100% - 50px);
+  pointer-events: none;
+  position: relative;
+  margin: 0 0 0 12px;
+  float: left;
+}
+
+.config-manager .items > .item > div > .label,
+.gu-mirror.item > div > .label {
+  font-weight: normal;
+  font-size: small;
+  color: black;
+  width: 100%;
+}
+
+.config-manager .items > .item > button,
+.gu-mirror.item > button {
+  transition-timing-function: ease;
+  transition-duration: 1.5s;
+  transition-property: all;
+  transition-delay: 0.0s;
+
+  background: #f58b00;
+  border-radius: 4px;
+  position: relative;
+  outline: none;
+  float: right;
+  height: 20px;
+  width: 26px;
+  right: 1px;
+}
+
+.config-manager .items > .item > button:hover {
+  background: #ff9000;
+}
+
+.config-manager .items > .item > button > span,
+.gu-mirror.item > button > span{
+  transition-timing-function: ease;
+  transition-duration: 1.5s;
+  transition-property: all;
+  transition-delay: 0.0s;
+
+  position: relative;
+  color: #505050;
+  top: -4px;
+}
+
+.config-manager .items > .item > button:hover > span {
+  color: #000000;
+}
+
+/////////////////////////////////////////////////////////
+// Sequence Name dialog
+//
+/////////////////////////////////////////////////////////
+.config-manager-dlg {
+  left: calc(50% - 150px) !important;
+  top: calc(40% - 100px) !important;
+  width: 300px !important;
+}
+
+.config-manager-dlg > .content .sequence-name-input {
+  border: 1px solid #aeaeae;
+  width: calc(100% - 236px);
+  padding: 3px 0 0 10px;
+  font-weight: normal;
+  white-space: nowrap;
+  border-radius: 4px;
+  text-align: left;
+  overflow: hidden;
+  height: 26px;
+  width: 100%;
+}
+
+/////////////////////////////////////////////////////////
+// title controls
+//
+/////////////////////////////////////////////////////////
+.config-manager-controls {
+  margin: auto 0 auto calc(100% - 156px);
+  position: relative;
+  float: left;
+}
+
+.config-manager-controls > button {
+  border: 1px solid #c6c6c6;
+  background-color: #e1e1e1;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  height: 24px;
+  width: 26px;
+}
+
+.config-manager-controls > button:hover {
+  border: 1px solid #878787;
+  background-color: #f5f5f5;
+}
+
+.config-manager-controls > button > label {
+  position: relative;
+  font-size: 20px;
+  color: #f0fcff;
+  top: -8px;
+}
+
+.config-manager-controls > button > span {
+  pointer-events: none;
+  color: #9b9b9b
+}
