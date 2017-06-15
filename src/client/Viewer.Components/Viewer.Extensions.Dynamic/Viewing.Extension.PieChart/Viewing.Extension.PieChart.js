@@ -84,19 +84,19 @@ class PieChartExtension extends MultiModelExtensionBase {
       Autodesk.Viewing.GEOMETRY_LOADED_EVENT,
       this.onGeometryLoaded)
 
-    this.viewer.loadDynamicExtension(
-      'Viewing.Extension.ContextMenu', {
-        buildMenu: (menu, selectedDbId) => {
-          return !selectedDbId
-            ? [{
-            title: 'Show all objects',
-            target: () => {
-              Toolkit.isolateFull(this.viewer)
-              this.viewer.fitToView()
-            }}]
-            : menu
-        }
-      })
+    // this.viewer.loadDynamicExtension(
+    //   'Viewing.Extension.ContextMenu', {
+    //     buildMenu: (menu, selectedDbId) => {
+    //       return !selectedDbId
+    //         ? [{
+    //         title: 'Show all objects',
+    //         target: () => {
+    //           Toolkit.isolateFull(this.viewer)
+    //           this.viewer.fitToView()
+    //         }}]
+    //         : menu
+    //     }
+    //   })
 
     console.log('Viewing.Extension.PieChart loaded')
 
@@ -331,6 +331,7 @@ class PieChartExtension extends MultiModelExtensionBase {
   //
   /////////////////////////////////////////////////////////
   async buildPropertyData (propName) {
+    this.viewer.activeModel = this.viewer.model;
 
     const componentsMap = await Toolkit.mapComponentsByProp(
       this.viewer.activeModel, propName,

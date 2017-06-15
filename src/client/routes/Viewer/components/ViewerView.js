@@ -1,6 +1,13 @@
 import {ReflexContainer, ReflexElement, ReflexSplitter} from 'react-reflex'
+
+import ContextMenuExtensionId from 'Viewing.Extension.ContextMenu'
+import DualExtensionId from 'Viewing.Extension.DualViewer'
+import PieExtensionId from 'Viewing.Extension.PieChart'
+import BarExtensionId from 'Viewing.Extension.BarChart'
+
 import WidgetContainer from 'WidgetContainer'
 import { ReactLoader } from 'Loader'
+import Toolkit from 'Viewer.Toolkit'
 import Viewer from 'Viewer'
 import './ViewerView.scss'
 import React from 'react'
@@ -16,6 +23,12 @@ class ViewerView extends React.Component {
       super ()
 
       this.onViewerCreated = this.onViewerCreated.bind(this)
+     
+      this.state = {
+        dualExtension: null,
+        barExtension: null,
+        pieExtension: null
+      }
    }
 
    /////////////////////////////////////////////////////////
@@ -87,6 +100,19 @@ class ViewerView extends React.Component {
       return doc.getViewablePath(items[pathIdx])
    }
 
+
+   assignState (state) {
+
+    return new Promise((resolve) => {
+
+      const newState = Object.assign({}, this.state, state)
+
+      this.setState(newState, () => {
+        resolve()
+      })
+    })
+   }
+
    /////////////////////////////////////////////////////////
    // viewer div and component created
    //
@@ -94,6 +120,8 @@ class ViewerView extends React.Component {
    async onViewerCreated (viewer) {
 
       try {
+
+        let doc = null
 
         let { id, urn, path, pathIdx } = this.props.location.query
 
@@ -145,7 +173,7 @@ class ViewerView extends React.Component {
 
         } else if (urn) {
 
-          const doc = await this.loadDocument (urn)
+          doc = await this.loadDocument (urn)
 
           path = this.getViewablePath (doc, pathIdx || 0)
 
@@ -159,6 +187,97 @@ class ViewerView extends React.Component {
 
         viewer.start()
 
+        const extOptions = (id) => {
+
+          return {
+            react: {
+
+              pushRenderExtension: () => {},
+
+              pushViewerPanel: () => {},
+
+              popRenderExtension: () => {},
+
+              popViewerPanel: () => {},
+
+              forceUpdate: () => {
+
+                return new Promise ((resolve) => {
+                  this.forceUpdate(() => {
+                    resolve()
+                  })
+                })
+              },
+              getComponent: () => {
+
+                return this
+              },
+              getState: () => {
+
+                return this.state[id] || {}
+              },
+              setState: (state, merge) => {
+
+                return new Promise ((resolve) => {
+
+                  const extState = this.state[id] || {}
+
+                  var newExtState = {}
+
+                  newExtState[id] = merge
+                    ? _.merge({}, extState, state)
+                    : Object.assign({}, extState, state)
+
+                  this.assignState(newExtState).then(() => {
+
+                    resolve (newExtState)
+                  })
+                })
+              }
+            }
+          }
+        }
+
+
+        viewer.loadExtension(DualExtensionId, 
+          Object.assign({}, extOptions(DualExtensionId), {
+            viewerDocument: doc
+          })).then((dualExtension) => {
+            this.assignState({
+              dualExtension
+            })
+        })
+
+        viewer.loadExtension(BarExtensionId, 
+          Object.assign({}, extOptions(BarExtensionId)
+          )).then((barExtension) => {
+            this.assignState({
+              barExtension
+            })
+          })
+
+        viewer.loadExtension(PieExtensionId, 
+          Object.assign({}, extOptions(PieExtensionId)
+          )).then((pieExtension) => {
+            this.assignState({
+              pieExtension
+            })
+          })
+
+        viewer.loadExtension(
+          ContextMenuExtensionId, {
+            buildMenu: (menu, selectedDbId) => {
+              return !selectedDbId
+                ? [{
+                title: 'Show all objects',
+                target: () => {
+                  Toolkit.isolateFull(this.viewer)
+                  this.viewer.fitToView()
+                }}]
+                : menu
+            }
+          })
+
         viewer.loadModel(path)
 
       } catch (ex) {
@@ -168,13 +287,16 @@ class ViewerView extends React.Component {
       }
    }
 
+  
    /////////////////////////////////////////////////////////
    //
    //
    /////////////////////////////////////////////////////////
    render() {
 
-        const showLoader = false
+        const {dualExtension} = this.state
+        const {pieExtension}  = this.state
+        const {barExtension}  = this.state
 
         return (
 
@@ -191,18 +313,19 @@ class ViewerView extends React.Component {
               <ReflexSplitter onStopResize={() => this.forceUpdate()}/>
               <ReflexElement>
                 <ReflexContainer orientation='horizontal'>
-                  <ReflexElement minSize={39}>
-                    <WidgetContainer title="2D Model">
-                      <ReactLoader show={showLoader}/>
-                      
-                    </WidgetContainer>
+                  <ReflexElement minSize={39} onResizeRate={100} onResize={() => dualExtension.onResize()}>
+                      <ReactLoader show={!dualExtension}/>
+                      {dualExtension && dualExtension.render()}
+                    </ReflexElement>
+                  <ReflexSplitter/>
+                  <ReflexElement minSize={39} onStopResize={() => pieExtension.onStopResize()}>
+                      <ReactLoader show={!pieExtension}/>
+                      {pieExtension && pieExtension.render()}
                   </ReflexElement>
-                  <ReflexSplitter onStopResize={() => this.forceUpdate()}/>
-                  <ReflexElement minSize={39}>
-                    <WidgetContainer title="Pie Chart">
-                      <ReactLoader show={showLoader}/>
-                      
-                    </WidgetContainer>
+                  <ReflexSplitter/>
+                  <ReflexElement minSize={39} onStopResize={() => barExtension.onStopResize()}>
+                      <ReactLoader show={!barExtension}/>
+                      {barExtension && barExtension.render()}
                   </ReflexElement>
                 </ReflexContainer>
               </ReflexElement>

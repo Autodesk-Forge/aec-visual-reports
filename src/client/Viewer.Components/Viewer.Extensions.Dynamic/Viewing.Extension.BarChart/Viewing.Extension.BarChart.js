@@ -81,19 +81,19 @@ class BarChartExtension extends MultiModelExtensionBase {
       }
     })
 
-    this.viewer.loadDynamicExtension(
-      'Viewing.Extension.ContextMenu', {
-        buildMenu: (menu, selectedDbId) => {
-          return !selectedDbId
-            ? [{
-            title: 'Show all objects',
-            target: () => {
-              Toolkit.isolateFull(this.viewer)
-              this.viewer.fitToView()
-            }}]
-            : menu
-        }
-      })
+    // this.viewer.loadDynamicExtension(
+    //   'Viewing.Extension.ContextMenu', {
+    //     buildMenu: (menu, selectedDbId) => {
+    //       return !selectedDbId
+    //         ? [{
+    //         title: 'Show all objects',
+    //         target: () => {
+    //           Toolkit.isolateFull(this.viewer)
+    //           this.viewer.fitToView()
+    //         }}]
+    //         : menu
+    //     }
+    //   })
 
     console.log('Viewing.Extension.BarChart loaded')
 
@@ -328,6 +328,8 @@ class BarChartExtension extends MultiModelExtensionBase {
   //
   /////////////////////////////////////////////////////////
   async buildPropertyData (propName) {
+
+    this.viewer.activeModel = this.viewer.model;
 
     const componentsMap = await Toolkit.mapComponentsByProp(
       this.viewer.activeModel, propName,
