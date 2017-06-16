@@ -9,8 +9,22 @@
 .navbar-brand,
 .navbar-nav li a {
   line-height: 60px;
-  height: 65px;
   padding-top: 0;
+  outline: none;
+  height: 65px;
+}
+
+.navbar .avatar {
+  border: 2px solid #e97922;
+  border-radius: 50%;
+  position: relative;
+  height: 40px;
+  top: 2px;
+}
+
+.navbar-nav .nav-label {
+  position: relative;
+  top: -2px;
 }
 
 .navbar-brand>img {
@@ -27,63 +41,61 @@
   overflow: visible;
 }
 
-.forge-navbar .dropdown-menu>li>a {
+.forge-rcdb-navbar .dropdown-menu>li>a {
   height: 30px;
   line-height: 23px;
   padding: 3px 20px;
 }
 
-.forge-navbar .dropdown .caret {
+.forge-rcdb-navbar .dropdown .caret {
   position: relative;
-  top: -60px;
-  left: 35px;
+  top: -66px;
+  left: 36px;
 }
 
-.forge-navbar .app-logo {
+.forge-rcdb-navbar .app-logo {
   position: relative;
   top: 2px;
 }
 
-.forge-navbar .menuItem {
+.forge-rcdb-navbar .menuItem {
   border-radius: 4px;
 }
 
-.forge-brand-item, {
+.forge-rcdb-brand-item, {
   list-style: none;
 }
 
-.forge-brand-item > a,
-.forge-brand-item > a:hover {
+.forge-rcdb-brand-item > a,
+.forge-rcdb-brand-item > a:hover {
   text-shadow: 0 0 0.5px #000;
   text-decoration: none;
   font-size: 24px;
   color: #daa228;
 }
 
-.forge-brand-item > a:hover {
+.forge-rcdb-brand-item > a:hover {
   color: #a53a20;
 }
 
-.forge-navbar .dropdown-menu span {
+.forge-rcdb-navbar .dropdown-menu span {
   position: relative;
   color: #5d5f5f;
   top: 1px;
 }
 
-.forge-navbar .forge-span {
+.forge-rcdb-navbar a .forge-rcdb-span {
   position: relative;
+  line-height: 60px;
   font-size: 26px;
-  color: #5d5f5f;
+  color: #a5a5a5;
   top: 3px;
+}
+
+.forge-rcdb-navbar a:hover .forge-rcdb-span {
+  color: #5d5f5f;
 }
 
 .navbar-default .navbar-nav > .active > a {
   background-color: #ffffff;
-}
-
-.navbar-default {
-  border-bottom-color: #aeaeae;
-  background-color: #ffffff;
-  border-bottom-width: 1px;
-  z-index: 3;
 }

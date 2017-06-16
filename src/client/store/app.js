@@ -6,6 +6,7 @@ import ServiceManager from 'SvcManager'
 export const SET_NAVBAR_STATE = 'SET_NAVBAR_STATE'
 export const SAVE_APP_STATE = 'SAVE_APP_STATE'
 export const SET_VIEWER_ENV = 'SET_VIEWER_ENV'
+export const SET_USER = 'SET_USER'
 
 // ------------------------------------
 // Actions
@@ -30,6 +31,13 @@ export function setViewerEnv (env) {
   }
 }
 
+export function setUser (user) {
+  return {
+    type    : SET_USER,
+    payload : user
+  }
+}
+
 // ------------------------------------
 // Action Handlers
 // ------------------------------------
@@ -40,14 +48,14 @@ const ACTION_HANDLERS = {
     const storageSvc = ServiceManager.getService(
       'StorageSvc')
 
-    storageSvc.save('AppState', state)
+    storageSvc.save('AppState.storage', state.storage)
 
     return state
   },
 
   [SET_NAVBAR_STATE] : (state, action) => {
 
-    const navbar = Object.assign({},
+    const navbar = _.merge({},
       state.navbar, action.payload)
 
     return Object.assign({}, state, {
@@ -60,34 +68,76 @@ const ACTION_HANDLERS = {
     return Object.assign({}, state, {
       viewerEnv: action.payload
     })
+  },
+
+  [SET_USER] : (state, action) => {
+
+    return Object.assign({}, state, {
+      user: action.payload
+    })
   }
+}
+
+// ------------------------------------
+// get storage
+// ------------------------------------
+const getStorage = () => {
+
+  const storageSvc = ServiceManager.getService(
+    'StorageSvc')
+
+  const storage = storageSvc.load(
+    'AppState.storage') || {}
+
+  const storageVersion = 1.0
+
+  const defaultStorage = {
+    layoutType: 'flexLayoutRight',
+    storageVersion,
+    theme: {
+      css: '/resources/themes/forge-white.css',
+      name: 'forge-white-theme',
+      viewer: {
+        backgroundColor: [
+          245, 245, 245,
+          245, 245, 245
+        ]
+      }
+    }
+  }
+
+  if (storage.version) {
+
+    return storage.version < storageVersion
+      ? defaultStorage
+      : storage
+  }
+
+  return defaultStorage
 }
 
 // ------------------------------------
 // Initial App State
 // ------------------------------------
-
 const createInitialState = () => {
 
   const defaultState = {
     navbar: {
       links:{
+        settings: true,
         about: true,
+        login: false,
         home: true
       }
     },
-    viewerEnv: null
+    viewerEnv: null,
+    user: null
   }
 
-  const storageSvc = ServiceManager.getService(
-    'StorageSvc')
-
-  const storageState = storageSvc.load(
-    'AppState')
-
   const initialState = Object.assign({},
-    defaultState,
-    storageState)
+    defaultState, {
+      storage: getStorage()
+    })
 
   return initialState
 }

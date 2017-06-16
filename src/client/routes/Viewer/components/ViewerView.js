@@ -31,6 +31,15 @@ class ViewerView extends React.Component {
       }
    }
 
+   componentWillMount() {
+   
+     this.props.setNavbarState({
+      links: {
+        login: true
+      }
+     })
+   }
+
    /////////////////////////////////////////////////////////
    // Initialize viewer environment
    //
@@ -137,26 +146,9 @@ class ViewerView extends React.Component {
 
           this.props.setViewerEnv('AutodeskProduction')
 
-          if (Autodesk.Viewing.setApiEndpoint) {
-
-            //2.13
-            Autodesk.Viewing.setApiEndpoint(
-              window.location.origin + '/lmv-proxy')
-
-          } else if(Autodesk.Viewing.setEndpointAndApi) {
-
-            //2.14
-            Autodesk.Viewing.setEndpointAndApi(
-              window.location.origin + '/lmv-proxy',
-              'modelDerivativeV2')
-
-          } else {
-
-            const error = 'Proxy API not found. ' +
-              'Requires viewer version >= 2.13'
-
-            throw new Error(error)
-          }
+          Autodesk.Viewing.setEndpointAndApi(
+            window.location.origin + '/lmv-proxy-2legged',
+            'modelDerivativeV2')
 
           Autodesk.Viewing.Private.memoryOptimizedSvfLoading = true
 
@@ -249,7 +241,9 @@ class ViewerView extends React.Component {
         })
 
         viewer.loadExtension(BarExtensionId, 
-          Object.assign({}, extOptions(BarExtensionId)
+          Object.assign({}, extOptions(BarExtensionId), {
+            defaultIndex: 60 // Category
+          }
           )).then((barExtension) => {
             this.assignState({
               barExtension
@@ -257,7 +251,9 @@ class ViewerView extends React.Component {
           })
 
         viewer.loadExtension(PieExtensionId, 
-          Object.assign({}, extOptions(PieExtensionId)
+          Object.assign({}, extOptions(PieExtensionId), {
+            defaultIndex: 534 // System Type
+          }
           )).then((pieExtension) => {
             this.assignState({
               pieExtension
@@ -302,11 +298,6 @@ class ViewerView extends React.Component {
 
           <div className="viewer-view">
             <ReflexContainer orientation='vertical'>
-              <ReflexElement minSize={139}>
-                <WidgetContainer title="BIM 360 Docs">
-                </WidgetContainer>
-              </ReflexElement>
-              <ReflexSplitter onStopResize={() => this.forceUpdate()}/>
               <ReflexElement flex={0.5} propagateDimensions={true} minSize={150}>
                 <Viewer onViewerCreated={this.onViewerCreated}/>
               </ReflexElement>
@@ -337,4 +328,11 @@ class ViewerView extends React.Component {
 
 export default ViewerView
 
+/*
 
+               <ReflexElement minSize={139}>
+                 <WidgetContainer title="BIM 360 Docs">
+                 </WidgetContainer>
+               </ReflexElement>
+               <ReflexSplitter onStopResize={() => this.forceUpdate()}/>
+*/

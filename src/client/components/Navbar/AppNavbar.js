@@ -1,9 +1,9 @@
 
 import { LinkContainer } from 'react-router-bootstrap'
-import React, { PropTypes } from 'react'
-import AboutDlg from 'Dialogs/AboutDlg'
+import ServiceManager from 'SvcManager'
+import PropTypes from 'prop-types'
 import './AppNavbar.scss'
-
+import React from 'react'
 import {
   DropdownButton,
   NavDropdown,
@@ -17,18 +17,29 @@ import {
 
 export default class AppNavbar extends React.Component {
 
-  /////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
   //
   //
-  /////////////////////////////////////////////////////////////////
-  state = {
-    aboutOpen: false
+  /////////////////////////////////////////////////////////
+  constructor (props) {
+
+    super(props)
+
+    this.state = {
+      aboutOpen:    false,
+      menuIcons:    false
+    }
+
+    this.forgeSvc = ServiceManager.getService(
+      'ForgeSvc')
+
+    console.log(this.props)
   }
 
-  /////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
   //
   //
-  /////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
   openAboutDlg () {
 
     this.setState(Object.assign({}, this.state, {
@@ -36,23 +47,50 @@ export default class AppNavbar extends React.Component {
     }))
   }
 
-  /////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
   //
   //
-  /////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
+  login () {
+
+    const { appState } = this.props
+
+    if (appState.user) {
+
+      this.props.setUser(null)
+
+      this.forgeSvc.logout()
+
+    } else {
+
+      this.forgeSvc.login()
+    }
+  }
+
+  /////////////////////////////////////////////////////////
+  //
+  //
+  /////////////////////////////////////////////////////////
   render() {
 
-    const { appState } = this.props;
+    const { appState } = this.props
+
+    const {user} = appState
+
+    const username = user
+      ? `${user.firstName} ${user.lastName}`
+      : ''
 
     return (
 
-      <Navbar className="forge-navbar">
+      <Navbar className="forge-rcdb-navbar">
         <Navbar.Header>
           <Navbar.Brand>
-            <NavItem className="forge-brand-item"
+            <NavItem className="forge-rcdb-brand-item"
               href="https://forge.autodesk.com"
               target="_blank">
               <img height="30" src="/resources/img/forge-logo.png"/>
+              {/*&nbsp;<b>Forge</b> | RCDB*/}
             </NavItem>
           </Navbar.Brand>
           <Navbar.Toggle/>
@@ -65,33 +103,65 @@ export default class AppNavbar extends React.Component {
 
             <Nav>
               <LinkContainer to={{ pathname: '/', query: { } }}>
-                <NavItem eventKey="home">
-                  &nbsp; Home
+                <NavItem eventKey={1}>
+                  <span className={"forge-rcdb-span " + (this.state.menuIcons ? "fa fa-home":"")}/>
+                  <label className="nav-label">
+                    &nbsp; Home
+                  </label>
                 </NavItem>
               </LinkContainer>
             </Nav>
           }
 
+           {
+             appState.navbar.links.gallery &&
+
+             <Nav>
+               <LinkContainer to={{ pathname: '/gallery', query: { } }}>
+                 <NavItem eventKey={2}>
+                   <span className={"forge-rcdb-span " + (this.state.menuIcons ? "fa fa-home":"")}/>
+                   <label className="nav-label">
+                   &nbsp; Gallery
+                   </label>
+                 </NavItem>
+               </LinkContainer>
+             </Nav>
+           }
+
           <Nav pullRight>
+
+            {
+
+              appState.navbar.links.login &&
+
+              <NavItem eventKey={3} onClick={() => {this.login()}}>
+                {
+                  !appState.user &&
+                  <span className="forge-rcdb-span fa fa-user"/>
+                }
+                {
+                  appState.user &&
+                  <img className="avatar" src={appState.user.profileImages.sizeX80}/>
+                }
+                <label className="nav-label" style={{top: appState.user ? "2px" : "-2px"}}>
+                &nbsp; { appState.user ? username : "Login"}
+                </label>
+              </NavItem>
+            }
 
             {
               appState.navbar.links.about &&
 
-              <NavItem eventKey="about" onClick={() => {this.openAboutDlg()}}>
+              <NavItem eventKey={4} onClick={() => {this.openAboutDlg()}}>
+                <span className={"forge-rcdb-span " + (this.state.menuIcons ? "fa fa-question-circle":"")}/>
+                <label className="nav-label">
                 &nbsp; About ...
+                </label>
               </NavItem>
             }
           </Nav>
 
         </Navbar.Collapse>
-
-        <AboutDlg
-          close={()=>{ this.setState(Object.assign({}, this.state, {
-            aboutOpen: false
-          }))}}
-          open={this.state.aboutOpen}
-        />
-
       </Navbar>
     )
   }

@@ -3,6 +3,9 @@
 // DEVELOPMENT configuration
 //
 /////////////////////////////////////////////////////////////////////
+const HOST_URL = 'http://localhost'
+const PORT= 3000
+
 const config = {
 
   client: {
@@ -14,8 +17,17 @@ const config = {
   forge: {
 
     oauth: {
+
+      redirectUri: `${HOST_URL}:${PORT}/api/forge/callback/oauth`,
+      authenticationUri: '/authentication/v1/authenticate',
+      refreshTokenUri: '/authentication/v1/refreshtoken',
+      authorizationUri: '/authentication/v1/authorize',
+      accessTokenUri: '/authentication/v1/gettoken',
+
+      baseUri: 'https://developer.api.autodesk.com',
       clientSecret: process.env.FORGE_DEV_CLIENT_SECRET,
       clientId: process.env.FORGE_DEV_CLIENT_ID,
+
       scope: [
         'data:read',
         'data:create',

@@ -1,17 +1,13 @@
 import { connect } from 'react-redux'
 import CoreLayout from './CoreLayout'
 import {
-  databaseChange,
-  layoutChange,
-  themeChange,
-  saveAppState
+  setNavbarState,
+  setUser,
   } from '../../store/app'
 
 const mapDispatchToProps = {
-  databaseChange,
-  layoutChange,
-  saveAppState,
-  themeChange
+  setNavbarState,
+  setUser
 }
 
 const mapStateToProps = (state) => ({

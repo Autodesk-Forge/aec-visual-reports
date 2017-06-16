@@ -11,6 +11,7 @@ import ServiceManager from 'SvcManager'
 import StorageSvc from 'StorageSvc'
 import SocketSvc from 'SocketSvc'
 import EventSvc from 'EventSvc'
+import ForgeSvc from 'ForgeSvc'
 
 // ========================================================
 // Services Initialization
@@ -39,12 +40,17 @@ const eventSvc = new EventSvc({
 
 })
 
+const forgeSvc = new ForgeSvc({
+  apiUrl: '/api/forge'
+})
+
 // ========================================================
 // Services Registration
 // ========================================================
 ServiceManager.registerService(storageSvc)
 ServiceManager.registerService(socketSvc)
 ServiceManager.registerService(eventSvc)
+ServiceManager.registerService(forgeSvc)
 
 // ========================================================
 // Store Instantiation

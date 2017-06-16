@@ -11,7 +11,6 @@ import path from 'path'
 
 //Endpoints
 import DerivativesAPI from './api/endpoints/derivatives'
-import LMVProxy from './api/endpoints/lmv-proxy'
 import SocketAPI from './api/endpoints/socket'
 import ForgeAPI from './api/endpoints/forge'
 import OssAPI from './api/endpoints/oss'
@@ -19,6 +18,7 @@ import OssAPI from './api/endpoints/oss'
 //Services
 import DerivativesSvc from './api/services/DerivativesSvc'
 import ServiceManager from './api/services/SvcManager'
+import LMVProxySvc from './api/services/LMVProxySvc'
 import SocketSvc from './api/services/SocketSvc'
 import ForgeSvc from './api/services/ForgeSvc'
 import OssSvc from './api/services/OssSvc'
@@ -32,6 +32,16 @@ import config from'c0nfig'
 /////////////////////////////////////////////////////////////////////
 const app = express()
 
+app.use(session({
+  secret: 'visual-bim-docs',
+  cookie: {
+    secure: false,
+    maxAge: 1000 * 60 * 60 * 24 // 24h session
+  },
+  resave: false,
+  saveUninitialized: true
+}))
+
 app.use('/resources', express.static(__dirname + '/../../resources'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -40,19 +50,45 @@ app.use(cookieParser())
 app.use(helmet())
 
 /////////////////////////////////////////////////////////////////////
-// API Routes setup - Disabled except socket by default
+// Services setup
 //
 /////////////////////////////////////////////////////////////////////
-//app.use('/api/derivatives', DerivativesAPI())
-app.use('/api/socket', SocketAPI())
-//app.use('/api/forge', ForgeAPI())
-//app.use('/api/oss', OssAPI())
+const derivativesSvc = new DerivativesSvc()
+
+const lmvProxySvc = new LMVProxySvc({
+  endpoint: config.forge.oauth.baseUri.replace('https://', '')
+})
+
+const forgeSvc = new ForgeSvc(
+  config.forge)
+
+const ossSvc = new OssSvc()
+
+ServiceManager.registerService(derivativesSvc)
+ServiceManager.registerService(forgeSvc)
+ServiceManager.registerService(ossSvc)
+
+/////////////////////////////////////////////////////////////////////
+// API Routes setup
+//
+/////////////////////////////////////////////////////////////////////
+app.use('/api/forge',     ForgeAPI())
 
 /////////////////////////////////////////////////////////////////////
 // Viewer GET Proxy
 //
 /////////////////////////////////////////////////////////////////////
-app.get('/lmv-proxy/*', LMVProxy.get)
+const proxy2legged = lmvProxySvc.generateProxy(
+  'lmv-proxy-2legged',
+  () => forgeSvc.get2LeggedToken())
+
+app.get('/lmv-proxy-2legged/*', proxy2legged)
+
+const proxy3legged = lmvProxySvc.generateProxy(
+  'lmv-proxy-3legged',
+  (session) => forgeSvc.get3LeggedToken(session))
+
+app.get('/lmv-proxy-3legged/*', proxy3legged)
 
 /////////////////////////////////////////////////////////////////////
 // This rewrites all routes requests to the root /index.html file
@@ -123,16 +159,6 @@ function runServer(app) {
       console.log('Unhandled Rejection at: Promise ', p,
         ' reason: ', reason)
     })
-
-    var derivativesSvc = new DerivativesSvc()
-
-    var forgeSvc = new ForgeSvc(config.forge)
-
-    var ossSvc = new OssSvc()
-
-    ServiceManager.registerService(derivativesSvc)
-    ServiceManager.registerService(forgeSvc)
-    ServiceManager.registerService(ossSvc)
 
     var server = app.listen(
       process.env.PORT || config.server_port || 3000, () => {

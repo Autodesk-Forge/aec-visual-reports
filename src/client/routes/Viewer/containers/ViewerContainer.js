@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
 import {
+  setNavbarState,
   setViewerEnv
   } from '../../../store/app'
 
@@ -16,6 +17,7 @@ import ViewerView from '../components/ViewerView'
     implementing our wrapper around increment; the component doesn't care   */
 
 const mapDispatchToProps = {
+  setNavbarState,
   setViewerEnv
 }
 

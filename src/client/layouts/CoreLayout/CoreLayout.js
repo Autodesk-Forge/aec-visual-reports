@@ -1,24 +1,60 @@
+import ServiceManager from 'SvcManager'
+import PropTypes from 'prop-types'
 import 'react-reflex/styles.css'
-import 'Dialogs/dialogs.scss'
 import Header from 'Header'
-import 'forge-white.scss'
 import React from 'react'
 import 'core.scss'
 
 class CoreLayout extends React.Component {
 
+  /////////////////////////////////////////////////////////
+  //
+  //
+  /////////////////////////////////////////////////////////
   static propTypes = {
-    children : React.PropTypes.element.isRequired
+    children : PropTypes.element.isRequired
   }
 
+  /////////////////////////////////////////////////////////
+  //
+  //
+  /////////////////////////////////////////////////////////
+  constructor () {
+
+    super()
+
+    this.state = {
+
+    }
+  }
+
+  /////////////////////////////////////////////////////////
+  //
+  //
+  /////////////////////////////////////////////////////////
+  componentWillMount () {
+
+    this.forgeSvc = ServiceManager.getService(
+      'ForgeSvc')
+
+    this.forgeSvc.getUser().then((user) => {
+
+      this.props.setUser(user)
+    })
+  }
+
+  /////////////////////////////////////////////////////////
+  //
+  //
+  /////////////////////////////////////////////////////////
   render () {
 
-    const { children } = this.props
+    const { appState, children } = this.props
 
     return (
-      <div className='container text-center'>
-        <Header {...this.props}/>
-        <div className='core-layout'>
+      <div className='container'>
+        <Header {...this.props} />
+        <div className='core-layout__viewport'>
           {children}
         </div>
       </div>
