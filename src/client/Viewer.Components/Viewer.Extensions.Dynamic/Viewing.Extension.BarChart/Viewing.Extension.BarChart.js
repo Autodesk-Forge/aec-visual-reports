@@ -361,7 +361,7 @@ class BarChartExtension extends MultiModelExtensionBase {
 
     const colors = d3.scale.linear()
       .domain([0, keys.length * .33, keys.length * .66, keys.length])
-      .range(['#FCB843', '#C2149F', '#0CC4BD', '#0270E9'])
+      .range(['#0696D7', '#87BC40', '#009944', '#1155AA'])
 
     const data = keys.map((key, idx) => {
 

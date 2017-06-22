@@ -298,17 +298,25 @@ class ViewerView extends React.Component {
 
           <div className="viewer-view">
             <ReflexContainer orientation='vertical'>
-              <ReflexElement flex={0.5} propagateDimensions={true} minSize={150}>
-                <Viewer onViewerCreated={this.onViewerCreated}/>
-              </ReflexElement>
-              <ReflexSplitter onStopResize={() => this.forceUpdate()}/>
               <ReflexElement>
-                <ReflexContainer orientation='horizontal'>
-                  <ReflexElement minSize={39} onResizeRate={100} onResize={() => dualExtension.onResize()}>
+              <ReflexContainer orientation='horizontal'>
+              <ReflexSplitter/>
+                <ReflexElement flex={0.5} propagateDimensions={true} minSize={150}>
+                  <Viewer onViewerCreated={this.onViewerCreated}/>
+                </ReflexElement>
+              <ReflexSplitter/>
+                <ReflexElement minSize={39} onResizeRate={100} onResize={() => dualExtension.onResize()}>
                       <ReactLoader show={!dualExtension}/>
                       {dualExtension && dualExtension.render()}
                     </ReflexElement>
-                  <ReflexSplitter/>
+                </ReflexContainer>    
+              </ReflexElement>
+
+
+            <ReflexSplitter onStopResize={() => barExtension.onStopResize()}/>
+              <ReflexElement>
+                <ReflexContainer orientation='horizontal'>
+                 <ReflexSplitter/>
                   <ReflexElement minSize={39} onStopResize={() => pieExtension.onStopResize()}>
                       <ReactLoader show={!pieExtension}/>
                       {pieExtension && pieExtension.render()}
