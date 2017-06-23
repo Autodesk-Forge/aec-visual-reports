@@ -160,6 +160,8 @@ class DualViewerExtension extends ExtensionBase {
             if (!this.selection2Locked) {
               this.selection1Locked = true
               this.viewer.select(e.dbIdArray)
+              this.viewer.isolate(e.dbIdArray)
+              this.viewer.fitToView(e.dbIdArray);
               this.selection1Locked = false
             }
           })

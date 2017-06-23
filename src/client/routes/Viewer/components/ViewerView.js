@@ -132,6 +132,8 @@ class ViewerView extends React.Component {
 
         let doc = null
 
+        let modelOptions = null
+
         let { id, urn, path, pathIdx } = this.props.location.query
 
         // check if env is initialized
@@ -168,6 +170,10 @@ class ViewerView extends React.Component {
           doc = await this.loadDocument (urn)
 
           path = this.getViewablePath (doc, pathIdx || 0)
+
+          modelOptions = {
+            sharedPropertyDbPath: doc.getPropertyDbPath()
+          }
 
         } else if (!path) {
 
@@ -274,7 +280,7 @@ class ViewerView extends React.Component {
             }
           })
 
-        viewer.loadModel(path)
+        viewer.loadModel(path,modelOptions)
 
       } catch (ex) {
 
@@ -302,7 +308,10 @@ class ViewerView extends React.Component {
               <ReflexContainer orientation='horizontal'>
               <ReflexSplitter/>
                 <ReflexElement flex={0.5} propagateDimensions={true} minSize={150}>
-                  <Viewer onViewerCreated={this.onViewerCreated}/>
+                 <WidgetContainer title="3D Model">
+                   <Viewer onViewerCreated={this.onViewerCreated}/>
+                 </WidgetContainer>
+                
                 </ReflexElement>
               <ReflexSplitter/>
                 <ReflexElement minSize={39} onResizeRate={100} onResize={() => dualExtension.onResize()}>

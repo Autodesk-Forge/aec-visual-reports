@@ -127,28 +127,11 @@ export default class AppNavbar extends React.Component {
                </LinkContainer>
              </Nav>
            }
-
+      
           <Nav pullRight>
-
-            {
-
-              appState.navbar.links.login &&
-
-              <NavItem eventKey={3} onClick={() => {this.login()}}>
-                {
-                  !appState.user &&
-                  <span className="forge-rcdb-span fa fa-user"/>
-                }
-                {
-                  appState.user &&
-                  <img className="avatar" src={appState.user.profileImages.sizeX80}/>
-                }
-                <label className="nav-label" style={{top: appState.user ? "2px" : "-2px"}}>
-                &nbsp; { appState.user ? username : "Login"}
-                </label>
-              </NavItem>
-            }
-
+          
+            
+            
             {
               appState.navbar.links.about &&
 

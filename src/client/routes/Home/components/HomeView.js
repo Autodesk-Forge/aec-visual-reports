@@ -15,10 +15,34 @@ class HomeView extends React.Component {
     this.state = {
       models: [
         {
-          //path: 'resources/models/seat/seat.svf',
+          thumbnail: 'resources/img/Office.png',
           urn: 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6amFpbWV2aXN1YWxyZXBzYmltMzYwZG9jczFnc2Jtb3NlYnp4a2cyY3RhNW0wZWtsMDNubXN6dzF0L1VyYmFuSG91c2UtMjAxNS5ydnQ',
-          thumbnailClass: 'office-thumbnail',
+          thumbnailClass: 'office',
           name: 'Office'
+        },
+        // {
+        //   //path: 'resources/models/seat/seat.svf',
+        //   urn: 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YWVjbW9kZWxzLXZpc3VhbHJlcG9ydHMxZ3NibW9zZWJ6eGtnMmN0YTVtMGVrbDAzbm1zencxdC9yYWNfYWR2YW5jZWRfc2FtcGxlX3Byb2plY3QucnZ0',
+        //   thumbnailClass: 'office-thumbnail',
+        //   name: 'RAC Advanced'
+        // },
+        // {
+        //   //path: 'resources/models/seat/seat.svf',
+        //   urn: 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YWVjbW9kZWxzLXZpc3VhbHJlcG9ydHMxZ3NibW9zZWJ6eGtnMmN0YTVtMGVrbDAzbm1zencxdC9ybWVfYWR2YW5jZWRfc2FtcGxlX3Byb2plY3QucnZ0',
+        //   thumbnailClass: 'office-thumbnail',
+        //   name: 'RME Advanced'
+        // },
+        {
+          thumbnail: 'resources/img/RST-advanced.png',
+          urn: 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YWVjbW9kZWxzLXZpc3VhbHJlcG9ydHMxZ3NibW9zZWJ6eGtnMmN0YTVtMGVrbDAzbm1zencxdC9yc3RfYWR2YW5jZWRfc2FtcGxlX3Byb2plY3QucnZ0',
+          thumbnailClass: 'office-thumbnail',
+          name: 'RST Advanced'
+        },
+        {
+          thumbnail: 'resources/img/RME-simple.png',
+          urn: 'dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6YWVjbW9kZWxzLXZpc3VhbHJlcG9ydHMxZ3NibW9zZWJ6eGtnMmN0YTVtMGVrbDAzbm1zencxdC9ybWVfYmFzaWNfc2FtcGxlX3Byb2plY3QucnZ0',
+          thumbnailClass: 'office-thumbnail',
+          name: 'RME Simple'
         }
       ]
     }
