@@ -1,37 +1,23 @@
-![banner](./resources/img/banner.png)
+# Forge AEC Visual Reports
 
-# About Forge React Boiler
 
-A boilerplate project to quickly get started using [Autodesk Forge Platform](https://forge.autodesk.com/)
-Web Services in a modern React + Node.js Web Application.
-The base project is initially derived from the [React Redux Starter Kit](https://github.com/davezuko/react-redux-starter-kit).
 
- * Main components of the Frontend:
+[![Node.js](https://img.shields.io/badge/Node.js-4.4.0-blue.svg)](https://nodejs.org/)
+[![npm](https://img.shields.io/badge/npm-3.10.7-green.svg)](https://www.npmjs.com/)
+![Platforms](https://img.shields.io/badge/platform-windows%20%7C%20osx%20%7C%20linux-lightgray.svg)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://opensource.org/licenses/MIT)
 
-  [React](https://facebook.github.io/react/) + [Redux](https://github.com/reactjs/redux)
+[![oAuth2](https://img.shields.io/badge/oAuth2-v1-green.svg)](http://developer.autodesk.com/)
+[![Viewer](https://img.shields.io/badge/Viewer-v2-green.svg)](http://developer.autodesk.com/)
 
- * On the Backend:
+## Description
+Description
 
-  [Node.js](https://nodejs.org) + [Express](http://expressjs.com)
+This example demonstrates the reporting capability of Autodesk Forge Viewer. Select the model from the Home page  to see the 2D and 3D representations of the model in the left pane. If the model has a 2D sheet, it will also be loaded along with a visual report showing the vital statistics of the model.
 
- * Build System:
+Additionally, you can view charts representing the quantity of the objects based on the selected attributes, such as types or materials. You can click on a wedge in the pie chart to highlight the corresponding objects in the model.
 
-  [NPM](https://www.npmjs.com/) scripts + [Webpack 2](https://webpack.js.org) + [Babel](https://babeljs.io)
-
-## React Support
-
-React >= 0.13.x
-
-## Browser Support
-
-Forge React Boiler is responsive, mobile friendly and has been tested on the following browsers:
-
-  * Chrome
-  * Firefox
-  * Safari
-  * Opera
-  * Edge
-
+![preview](./resources/img/aec-visual-reports-preview.png)
 
 ## Running the sample
 
@@ -62,61 +48,16 @@ In **production**, the client requires a build step, so run:
  * open [http://localhost:3000](http://localhost:3000) in your favorite browser
 
 
-## Loading custom models in the Forge Viewer
 
-The project contains a default model located in **/resources/models/seat** that can be loaded with no further
-setup and will also work offline.
+## License
 
-If you want to load a model from **Autodesk Cloud**, you first need to generate a viewable **URN** as documented in the
-[Prepare a File for the Viewer](https://developer.autodesk.com/en/docs/model-derivative/v2/tutorials/prepare-file-for-viewer/) tutorial.
-
-Using the same Forge ClientId & ClientSecret used to upload the model,
-populate environment variables used by the config files (in **/config**):
-
-  * development:
-
-    `FORGE_DEV_CLIENT_ID`
-
-    `FORGE_DEV_CLIENT_SECRET`
-
-  * production:
-
-    `FORGE_CLIENT_ID`
-
-    `FORGE_CLIENT_SECRET`
+That samples are licensed under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
 
-Restart the server, you can then directly load your model by specifying design **URN** as query parameter in the url of the viewer page:
+## Written by
 
-[http://localhost:3000/viewer?urn=YOUR_URN_HERE](http://localhost:3000/viewer?urn=YOUR_DESIGN_URN_HERE)
+Jaime Rosales D.<br />
+[![Twitter Follow](https://img.shields.io/twitter/follow/afrojme.svg?style=social&label=Follow @Afrojme)](https://twitter.com/afrojme) <br />
+Forge Partner Development <br />
+<a href="http://developer.autodesk.com/">Forge Developer Portal</a> <br />
 
-
-## Deploy to Heroku
-
-Use your **Forge ClientId & ClientSecret** obtained while
-[Creating a new Forge App](https://developer.autodesk.com/myapps/create)
-
-And Press Deploy button below:
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-
-Wait for a while once the Heroku App has been deployed as the client needs to be built **after the first run**
-
-## More about Autodesk Forge Platform and Web Applications of the future?
-
-Check it out at [developer.autodesk.com](https://developer.autodesk.com).
-
-Look at our [Quickstarts Guide](https://developer.autodesk.com/en/docs/quickstarts/v1/overview/)
-to find the Forge SDK's for the programming language of your choice.
-
-## About the Author
-
-[https://twitter.com/F3lipek](https://twitter.com/F3lipek)
-
-## Web Applications using Forge React Boiler
-
- * [Autodesk Forge RCDB](https://forge-rcdb.autodesk.io)
-
- ![forge-rcdb](https://github.com/Autodesk-Forge/forge-rcdb.nodejs/blob/master/resources/img/forge-rcdb.jpg)
-
-(Feel free to add your own by submitting a pull request...)
