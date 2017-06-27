@@ -132,6 +132,10 @@ class ViewerView extends React.Component {
 
         let doc = null
 
+        let indexValBar = 0
+
+        let indexValPie = 0
+
         let modelOptions = null
 
         let { id, urn, path, pathIdx } = this.props.location.query
@@ -168,6 +172,19 @@ class ViewerView extends React.Component {
         } else if (urn) {
 
           doc = await this.loadDocument (urn)
+
+          if (doc.myData.derivatives[0].name === 'UrbanHouse-2015.rvt') {
+             indexValBar = 60
+             indexValPie = 534
+          }
+          else if (doc.myData.derivatives[0].name === 'rst_advanced_sample_project.rvt'){
+             indexValBar = 26
+             indexValPie = 100
+          }
+          else if (doc.myData.derivatives[0].name === 'rme_basic_sample_project.rvt'){
+             indexValBar = 343
+             indexValPie = 67
+          }
 
           path = this.getViewablePath (doc, pathIdx || 0)
 
@@ -248,7 +265,7 @@ class ViewerView extends React.Component {
 
         viewer.loadExtension(BarExtensionId, 
           Object.assign({}, extOptions(BarExtensionId), {
-            defaultIndex: 60 // Category
+            defaultIndex: indexValBar // Category
           }
           )).then((barExtension) => {
             this.assignState({
@@ -258,7 +275,7 @@ class ViewerView extends React.Component {
 
         viewer.loadExtension(PieExtensionId, 
           Object.assign({}, extOptions(PieExtensionId), {
-            defaultIndex: 534 // System Type
+            defaultIndex: indexValPie // System Type
           }
           )).then((pieExtension) => {
             this.assignState({
@@ -280,7 +297,7 @@ class ViewerView extends React.Component {
             }
           })
 
-        viewer.loadModel(path,modelOptions)
+        viewer.loadModel(path, modelOptions)
 
       } catch (ex) {
 
@@ -307,7 +324,7 @@ class ViewerView extends React.Component {
               <ReflexElement>
               <ReflexContainer orientation='horizontal'>
               <ReflexSplitter/>
-                <ReflexElement flex={0.5} propagateDimensions={true} minSize={150}>
+                <ReflexElement flex={0.5} propagateDimensions={true} minSize={39} >
                  <WidgetContainer title="3D Model">
                    <Viewer onViewerCreated={this.onViewerCreated}/>
                  </WidgetContainer>

@@ -1,17 +1,23 @@
 
 /////////////////////////////////////////////////////////////////////
-// DEVELOPMENT configuration
+// PRODUCTION configuration
 //
 /////////////////////////////////////////////////////////////////////
+const HOST_URL = 'http://localhost'
+const PORT= 3001
+
 const config = {
+
+  env: 'production',
 
   client: {
     // this the public host name of your server for the
     // client socket to connect.
     // eg. https://myforgeapp.mydomain.com
-    host: 'https://forge-react-boiler.autodesk.io',
+    host: `${HOST_URL}`,
     env: 'production',
-    port: 443
+    port: PORT
+    
   },
 
   forge: {
@@ -19,6 +25,14 @@ const config = {
     oauth: {
       clientSecret: process.env.FORGE_CLIENT_SECRET,
       clientId: process.env.FORGE_CLIENT_ID,
+
+      redirectUri: `${HOST_URL}/api/forge/callback/oauth`,
+      authenticationUri: '/authentication/v1/authenticate',
+      refreshTokenUri: '/authentication/v1/refreshtoken',
+      authorizationUri: '/authentication/v1/authorize',
+      accessTokenUri: '/authentication/v1/gettoken',
+      baseUri: 'https://developer.api.autodesk.com',
+
       scope: [
         'data:read',
         'data:create',
@@ -29,9 +43,9 @@ const config = {
     },
 
     viewer: {
-      viewer3D: 'https://developer.api.autodesk.com/viewingservice/v1/viewers/viewer3D.min.js?v=2.13',
-      threeJS:  'https://developer.api.autodesk.com/viewingservice/v1/viewers/three.min.js?v=2.13',
-      style:    'https://developer.api.autodesk.com/viewingservice/v1/viewers/style.min.css?v=2.13'
+      viewer3D: 'https://developer.api.autodesk.com/viewingservice/v1/viewers/viewer3D.min.js?v=2.15',
+      threeJS:  'https://developer.api.autodesk.com/viewingservice/v1/viewers/three.min.js?v=2.15',
+      style:    'https://developer.api.autodesk.com/viewingservice/v1/viewers/style.min.css?v=2.15'
     }
   }
 }

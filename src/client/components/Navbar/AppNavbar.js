@@ -132,16 +132,7 @@ export default class AppNavbar extends React.Component {
           
             
             
-            {
-              appState.navbar.links.about &&
-
-              <NavItem eventKey={4} onClick={() => {this.openAboutDlg()}}>
-                <span className={"forge-rcdb-span " + (this.state.menuIcons ? "fa fa-question-circle":"")}/>
-                <label className="nav-label">
-                &nbsp; About ...
-                </label>
-              </NavItem>
-            }
+            
           </Nav>
 
         </Navbar.Collapse>

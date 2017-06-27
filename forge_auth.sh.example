@@ -7,10 +7,10 @@
 export FORGE_DEV_CLIENT_ID='REPLACE_ME'
 export FORGE_DEV_CLIENT_SECRET='REPLACE_ME'
 export NODE_ENV=development
+export PORT=3000
 
 # PRODUCTION SETUP
 # export FORGE_CLIENT_ID='REPLACE_ME'
 # export FORGE_CLIENT_SECRET='REPLACE_ME'
 # export NODE_ENV=production
-
-export PORT=3000
+# export PORT=3001

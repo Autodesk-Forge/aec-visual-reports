@@ -8,12 +8,14 @@ const PORT= 3000
 
 const config = {
 
-  client: {
-    host: 'http://localhost',
-    env: 'development',
-    port: 3000
-  },
+  env: 'development',
 
+  client: {
+    host: `${HOST_URL}`,
+    env: 'development',
+    port: PORT
+  },
+  
   forge: {
 
     oauth: {
