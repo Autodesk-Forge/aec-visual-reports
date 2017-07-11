@@ -1,6 +1,7 @@
 import ServiceManager from 'SvcManager'
 import PropTypes from 'prop-types'
 import 'react-reflex/styles.css'
+import 'Dialogs/dialogs.scss'
 import Header from 'Header'
 import React from 'react'
 import 'core.scss'

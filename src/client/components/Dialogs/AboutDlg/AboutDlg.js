@@ -45,23 +45,23 @@ export default class AboutDlg extends React.Component {
 
           <div className="title">
             <img/>
-            <b>About Forge React Boiler ...</b>
+            <b>About AEC Visual Reports ...</b>
           </div>
 
           <div className="content">
              <div>
-               Written by Philippe Leefsma
+               Written by Jaime Rosales
                <br/>
-               <a href="https://twitter.com/F3lipek" target="_blank">
-               @F3lipek
+               <a href="https://twitter.com/afrojme" target="_blank">
+               @AfroJme
                </a>
-               &nbsp;- February 2017
+               &nbsp;- July 2017
                <br/>
                <br/>
                Source on github:
                <br/>
-               <a href="https://github.com/Autodesk-Forge/forge-react-boiler.nodejs" target="_blank">
-               Forge React Boiler
+               <a href="https://github.com/Autodesk-Forge/aec-visual-reports" target="_blank">
+               AEC Visual Reports
                </a>
              </div>
           </div>
