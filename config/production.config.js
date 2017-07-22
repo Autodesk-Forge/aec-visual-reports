@@ -3,8 +3,8 @@
 // PRODUCTION configuration
 //
 /////////////////////////////////////////////////////////////////////
-const HOST_URL = 'http://localhost'
-const PORT= 3001
+const HOST_URL = 'https://visual-reports.autodesk.io'
+const PORT= 443
 
 const config = {
 
