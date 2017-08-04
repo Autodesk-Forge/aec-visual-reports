@@ -173,18 +173,18 @@ class ViewerView extends React.Component {
 
           doc = await this.loadDocument (urn)
 
-          if (doc.myData.derivatives[0].name === 'UrbanHouse-2015.rvt') {
-             indexValBar = 60
-             indexValPie = 534
-          }
-          else if (doc.myData.derivatives[0].name === 'rst_advanced_sample_project.rvt'){
-             indexValBar = 26
-             indexValPie = 100
-          }
-          else if (doc.myData.derivatives[0].name === 'rme_basic_sample_project.rvt'){
-             indexValBar = 343
-             indexValPie = 67
-          }
+          // if (doc.myData.derivatives[0].name === 'UrbanHouse-2015.rvt') {
+          //    indexValBar = 60
+          //    indexValPie = 534
+          // }
+          // else if (doc.myData.derivatives[0].name === 'rst_advanced_sample_project.rvt'){
+          //    indexValBar = 26
+          //    indexValPie = 100
+          // }
+          // else if (doc.myData.derivatives[0].name === 'rme_basic_sample_project.rvt'){
+          //    indexValBar = 343
+          //    indexValPie = 67
+          // }
 
           path = this.getViewablePath (doc, pathIdx || 0)
 
@@ -263,25 +263,41 @@ class ViewerView extends React.Component {
             })
         })
 
-        viewer.loadExtension(BarExtensionId, 
-          Object.assign({}, extOptions(BarExtensionId), {
-            defaultIndex: indexValBar // Category
-          }
-          )).then((barExtension) => {
-            this.assignState({
-              barExtension
-            })
-          })
+        viewer.loadExtension(BarExtensionId,
+        Object.assign({}, extOptions(BarExtensionId), {
+           "chartProperties" : [
+                                "Category", 
+                                "Flow", 
+                                "Level", 
+                                "Material", 
+                                "Reference Level", 
+                                "System Classification", 
+                                "System Name", 
+                                "System Type"
+                            ]
+        })).then((barExtension) => {
+        this.assignState({
+          barExtension
+        })
+      })
 
-        viewer.loadExtension(PieExtensionId, 
-          Object.assign({}, extOptions(PieExtensionId), {
-            defaultIndex: indexValPie // System Type
-          }
-          )).then((pieExtension) => {
-            this.assignState({
-              pieExtension
-            })
-          })
+      viewer.loadExtension(PieExtensionId,
+        Object.assign({}, extOptions(PieExtensionId), {
+           "chartProperties" : [
+                                "Category", 
+                                "Flow", 
+                                "Level", 
+                                "Material", 
+                                "Reference Level", 
+                                "System Classification", 
+                                "System Name", 
+                                "System Type"
+                            ]
+        })).then((pieExtension) => {
+        this.assignState({
+          pieExtension
+        })
+      })
 
         viewer.loadExtension(
           ContextMenuExtensionId, {
@@ -361,12 +377,3 @@ class ViewerView extends React.Component {
 }
 
 export default ViewerView
-
-/*
-
-               <ReflexElement minSize={139}>
-                 <WidgetContainer title="BIM 360 Docs">
-                 </WidgetContainer>
-               </ReflexElement>
-               <ReflexSplitter onStopResize={() => this.forceUpdate()}/>
-*/
