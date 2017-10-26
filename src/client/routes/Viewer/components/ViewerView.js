@@ -23,7 +23,7 @@ class ViewerView extends React.Component {
       super ()
 
       this.onViewerCreated = this.onViewerCreated.bind(this)
-     
+
       this.state = {
         dualExtension: null,
         barExtension: null,
@@ -32,7 +32,7 @@ class ViewerView extends React.Component {
    }
 
    componentWillMount() {
-   
+
      this.props.setNavbarState({
       links: {
         login: true
@@ -152,7 +152,7 @@ class ViewerView extends React.Component {
 
           this.props.setViewerEnv('AutodeskProduction')
 
-          Autodesk.Viewing.setEndpointAndApi(
+          Autodesk.Viewing.endpoint.setEndpointAndApi(
             window.location.origin + '/lmv-proxy-2legged',
             'modelDerivativeV2')
 
@@ -254,7 +254,7 @@ class ViewerView extends React.Component {
         }
 
 
-        viewer.loadExtension(DualExtensionId, 
+        viewer.loadExtension(DualExtensionId,
           Object.assign({}, extOptions(DualExtensionId), {
             viewerDocument: doc
           })).then((dualExtension) => {
@@ -266,13 +266,13 @@ class ViewerView extends React.Component {
         viewer.loadExtension(BarExtensionId,
         Object.assign({}, extOptions(BarExtensionId), {
            "chartProperties" : [
-                                "Category", 
-                                "Flow", 
-                                "Level", 
-                                "Material", 
-                                "Reference Level", 
-                                "System Classification", 
-                                "System Name", 
+                                "Category",
+                                "Flow",
+                                "Level",
+                                "Material",
+                                "Reference Level",
+                                "System Classification",
+                                "System Name",
                                 "System Type"
                             ]
         })).then((barExtension) => {
@@ -284,13 +284,13 @@ class ViewerView extends React.Component {
       viewer.loadExtension(PieExtensionId,
         Object.assign({}, extOptions(PieExtensionId), {
            "chartProperties" : [
-                                "Category", 
-                                "Flow", 
-                                "Level", 
-                                "Material", 
-                                "Reference Level", 
-                                "System Classification", 
-                                "System Name", 
+                                "Category",
+                                "Flow",
+                                "Level",
+                                "Material",
+                                "Reference Level",
+                                "System Classification",
+                                "System Name",
                                 "System Type"
                             ]
         })).then((pieExtension) => {
@@ -322,7 +322,7 @@ class ViewerView extends React.Component {
       }
    }
 
-  
+
    /////////////////////////////////////////////////////////
    //
    //
@@ -344,14 +344,14 @@ class ViewerView extends React.Component {
                  <WidgetContainer title="3D Model">
                    <Viewer onViewerCreated={this.onViewerCreated}/>
                  </WidgetContainer>
-                
+
                 </ReflexElement>
               <ReflexSplitter/>
                 <ReflexElement minSize={39} onResizeRate={100} onResize={() => dualExtension.onResize()}>
                       <ReactLoader show={!dualExtension}/>
                       {dualExtension && dualExtension.render()}
                     </ReflexElement>
-                </ReflexContainer>    
+                </ReflexContainer>
               </ReflexElement>
 
 
