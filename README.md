@@ -16,6 +16,8 @@ This example demonstrates the reporting capability of Autodesk Forge Viewer. Sel
 
 Additionally, you can view charts representing the quantity of the objects based on the selected attributes, such as types or materials. You can click on a wedge in the pie chart to highlight the corresponding objects in the model.
 
+### Thumbnail
+
 ![thumbnail](./resources/img/aec-visual-reports-preview.png)
 
 ## Running the sample
