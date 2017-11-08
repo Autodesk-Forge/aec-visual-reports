@@ -11,13 +11,12 @@
 [![Viewer](https://img.shields.io/badge/Viewer-v2-green.svg)](http://developer.autodesk.com/)
 
 ## Description
-Description
 
 This example demonstrates the reporting capability of Autodesk Forge Viewer. Select the model from the Home page  to see the 2D and 3D representations of the model in the left pane. If the model has a 2D sheet, it will also be loaded along with a visual report showing the vital statistics of the model.
 
 Additionally, you can view charts representing the quantity of the objects based on the selected attributes, such as types or materials. You can click on a wedge in the pie chart to highlight the corresponding objects in the model.
 
-![preview](./resources/img/aec-visual-reports-preview.png)
+![thumbnail](./resources/img/aec-visual-reports-preview.png)
 
 ## Running the sample
 
